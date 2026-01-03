@@ -1,0 +1,25 @@
+{
+  "name": "mongodb-product-manager",
+  "version": "1.0.0",
+  "description": "A sleek web interface to manage MongoDB products.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "nodejs"
+  ],
+  "author": "Gemini",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "chalk": "^5.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1"
+  }
+}
