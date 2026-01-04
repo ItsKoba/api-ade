@@ -1074,6 +1074,44 @@ export async function deleteCategory(botId, categoryName) {
   }
 }
 
+/**
+ * Alias untuk deleteCategory - digunakan oleh app.js endpoint DELETE /api/product-view/:title
+ * @param {number} botId 
+ * @param {string} title - Nama kategori
+ */
+export async function delProductView(botId, title) {
+  return await deleteCategory(botId, title);
+}
+
+/**
+ * Menghapus satu produk dari kategori Product View
+ * @param {number} botId 
+ * @param {string} title - Nama kategori
+ * @param {string} productId - ID produk yang akan dihapus dari kategori
+ */
+export async function delIdFromProductView(botId, title, productId) {
+  await connectDB();
+  try {
+    const category = await Category.findOne({ botId, name: title });
+    if (!category) {
+      return { success: false, error: "Kategori tidak ditemukan." };
+    }
+
+    // Remove productId from products array
+    const index = category.products.indexOf(productId);
+    if (index === -1) {
+      return { success: false, error: "Produk tidak ditemukan dalam kategori ini." };
+    }
+
+    category.products.splice(index, 1);
+    await category.save();
+
+    return { success: true, data: { id: category.products } };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+}
+
 // ----------------- Statistik & Lainnya (Disesuaikan) -----------------
 
 export async function getAdminStats(botId) {
