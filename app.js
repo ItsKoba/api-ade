@@ -227,9 +227,10 @@ app.get('/api/product-view', async (req, res) => {
             }
             
             // Convert to array format
-            const productViews = Object.entries(productViewObj).map(([title, productIds]) => ({
+            // PERBAIKAN: value bisa berupa { id: [...] } atau langsung array
+            const productViews = Object.entries(productViewObj).map(([title, value]) => ({
                 title,
-                productIds: Array.isArray(productIds) ? productIds : []
+                productIds: Array.isArray(value?.id) ? value.id : (Array.isArray(value) ? value : [])
             }));
             
             res.json({ success: true, data: productViews });
